@@ -11,10 +11,13 @@
 
     <style>
 
-    body {
-      background-color: #F3EBF6;
+body {
+              background: #eecda3;
+              background: -webkit-linear-gradient(to right, #eecda3, #E040FB);
+              background: linear-gradient(to right, #eecda3, #E040FB);
+              min-height: 100vh;
     }
-    nav {
+.nav {
       float: right;
     }
     nav ul {
@@ -30,7 +33,7 @@
       display: block;
       padding: 0 20px;
       line-height: 70px;
-      background: #F3EBF6;
+      background: #683d77;
       color: #463f3f;
       text-decoration: none;
       /*
@@ -232,13 +235,14 @@
                         {{request.session.cart.keys|length}}</span>
                 </a></li>
                 <li><a href="#">All</a>
-                    <ul class="nav-dropdown" style="">
-                        <li><a href="/products?categorie=10">All</a></li>
-                        {% for categorie in categories %}
-                        <li><a href="/products?categorie={{categorie.id}}">{{categorie.name}}</a></li>
-                        {% endfor %}
-                    </ul>
-                </li>
+                  <ul class="nav-dropdown" style="z-index: 100;">
+                      <li><a href="/products?categorie=10">All</a></li>
+                      {% for categorie in categories %}
+                      <li><a href="/products?categorie={{categorie.id}}">{{categorie.name}}</a></li>
+                      {% endfor %}
+                  </ul>
+              </li>
+              
                 <li><a href="/logout">Log out</a></li>
                 {% endif %}
                 <li><a href="/about-us">About</a></li>
@@ -260,7 +264,8 @@
 
             <div class="card-body" >
                 <h5 class="card-title">{{ product.name }}</h5>
-                <p class="card-text">&#8377 {{ product.price }}/kg</p>
+                <p class="card-text">&#8377 {{ product.price }}</p>
+                <p class="card-text">Available Stocks {{ product.stock }} Kg</p>
 
 
             </div>

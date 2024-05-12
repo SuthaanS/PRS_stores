@@ -77,6 +77,17 @@ def thank_you(request):
         products = Product.get_products_by_id(list(carts.keys()))
         print(address, phone, user_id, carts, products)
 
+        # Inside the thank_you function, after the order is successfully placed
+        for product in products:
+            ordered_quantity = carts.get(str(product.id))
+            if ordered_quantity <= product.stock:
+                product.stock -= ordered_quantity
+                product.save()
+            else:
+                messages.error(request, f"Sorry, {product.name} has only {product.stock} units available.")
+                return redirect('/products/cart')
+
+            
         if len(phone) == 10:
             if phone[0] in "7896":
                 for product in products:
@@ -91,6 +102,10 @@ def thank_you(request):
         else:
             messages.error(request, 'Phone no should have 10 digits')
             return redirect('/products/cart')
+        # Inside the thank_you function, after the order is successfully placed
+        
+
+
 
     else:
         return redirect('/')
